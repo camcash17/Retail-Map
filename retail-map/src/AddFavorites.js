@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Glyphicon } from 'react-bootstrap';
 
 class AddFavorites extends Component {
     constructor(props) {
@@ -23,12 +24,9 @@ class AddFavorites extends Component {
     render() { 
         return ( 
             <div>
-                <button
-                    onClick={() => this.crudChange(this.state.newFavorite)}>
-                    Favorite
-                </button>
-                <hr />
-                <hr />
+                <Button className="buttonTwo" style={{fontSize: '15px'}} onClick={() => this.crudChange(this.state.newFavorite)}>
+                    <Glyphicon glyph="star" />
+                </Button>
             </div>
          )
     }

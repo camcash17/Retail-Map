@@ -48,6 +48,10 @@ task waitForRetailersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/retailers', 'Retailers API'
 }
 
+task waitUsersAPI(type: Exec) {
+	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
+}
+
 task runRetailersAPITests(type: Exec) {
 	workingDir './retailers-api'
 	commandLine './gradlew', 'test'

@@ -30,6 +30,49 @@
 .layout {
   display: grid;
   grid-template-columns: 20% 60% 20%;
-  /* margin: 5px; */
-  /* padding: 10px; */
+}
+
+.header {
+  background-color: rgb(68, 155, 215);
+}
+
+.buttonOne:hover {
+  background-color: rgba(255, 0, 0, .5)
+}
+
+.buttonTwo {
+  color: rgb(68, 155, 215);
+}
+
+.buttonTwo:hover {
+  color: rgb(255, 255, 0);
+  background-color: rgb(68, 155, 215);
+}
+
+.brand {
+  filter: opacity(75%);
+}
+
+.brand:hover {
+  filter: opacity(100%);
+}
+
+@media (max-width: 380px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #one {
+    order: 2;
+  }
+
+  #two {
+    order: 1;
+  }
+
+  #three {
+    order: 3;
+    text-align: center;
+  }
 }

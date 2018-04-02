@@ -10,8 +10,8 @@ class MyFancyComponent extends React.PureComponent {
   render() {
     let favs;
     let results;
-    console.log('selected list', this.props.selected)
-    console.log('fav list', this.props.favorites)
+    // console.log('selected list', this.props.selected)
+    // console.log('fav list', this.props.favorites)
 
     //conditional rendering to see if results exist from query external API search
     //if results exist, map over the data and return location data for map component
