@@ -8,7 +8,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 //as well as methods to set state in order to render an info window on the markers
 const MyMapComponent = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCuX4J4se2kKR-WCCYtrApC-OGIM5XWAo4&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div className="mapHeight" style={{ height: `600px` }} />,
     mapElement: <div style={{ height: `100%` }} />,

@@ -27,7 +27,8 @@ class App extends Component {
 
   //method that makes a call to the database and stores the resukts in state
   componentDidMount() {
-    axios.get(process.env.REACT_APP_HOST+`/retailers`)
+    axios.get(`/retailers`)
+    // axios.get(process.env.REACT_APP_HOST+`/retailers`)
     .then(function (response) {
       console.log('response', response.data)
       this.setState({
@@ -85,7 +86,8 @@ class App extends Component {
   //method to delete a favorite item and remove it from the DB via axios call from the array that lives in state
   deleteFavorite = async (retailerId, index) => {
     try {
-      await axios.delete(process.env.REACT_APP_HOST+`/retailers/${retailerId}`);
+      await axios.delete(`/retailers/${retailerId}`);
+      // await axios.delete(process.env.REACT_APP_HOST+`/retailers/${retailerId}`);
       const updatedRetailersList = [...this.state.retailers];
       updatedRetailersList.splice(index, 1);
       this.setState({ retailers: updatedRetailersList });
@@ -106,7 +108,8 @@ class App extends Component {
             
       //     )
       // })
-      const newFavoriteResponse = await axios.post(process.env.REACT_APP_HOST+`/retailers`, retailer);
+      const newFavoriteResponse = await axios.post(`/retailers`, retailer);
+      // const newFavoriteResponse = await axios.post(process.env.REACT_APP_HOST+`/retailers`, retailer);
 
       const updatedFavoriteList = [...this.state.retailers];
       updatedFavoriteList.push(newFavoriteResponse.data);
@@ -126,7 +129,8 @@ class App extends Component {
     console.log('state', this.state.retailers[index])
     try {
       const retailerToUpdate = this.state.retailers[index];
-      await axios.patch(process.env.REACT_APP_HOST+`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
+      await axios.patch(`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
+      // await axios.patch(process.env.REACT_APP_HOST+`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
       console.log('Updated Favorite!');
     } catch (error) {
       console.log("Error updating Favorite!");
@@ -255,7 +259,7 @@ class App extends Component {
                               onBlur={() => this.updateFavorite(index)}
                               value={favorites.orgName} />
                         </div>
-                        <MuiThemeProvider>
+                        {/* <MuiThemeProvider>
                           <div>
                             <RaisedButton
                               label="Open Drawer"
@@ -271,7 +275,7 @@ class App extends Component {
                               <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
                             </Drawer>
                           </div>
-                        </MuiThemeProvider>
+                        </MuiThemeProvider> */}
                         <Button className="buttonOne" style={{marginTop: '5px'}} onClick={() => this.deleteFavorite(favorites.id, index)}>
                           Delete
                         </Button>
