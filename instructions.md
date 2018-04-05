@@ -121,7 +121,7 @@ REACT_APP_HOST=http://(*Paste your public DNS here*):8080
 
 * Back in the terminal, navigate to the retail-map directory and run the following commands:
 * `npm build`
-* Sync the folder with the bucket: `aws s3 sync build/ s3://(*your bucket name)`
+* Sync the folder with the bucket: `aws s3 sync build/ s3://(*your bucket name*)`
 
 NOTE IF YOU GOT ACCESS ERROR:
 
