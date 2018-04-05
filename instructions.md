@@ -40,7 +40,7 @@ Note:
 * npm install 
 * npm run build
 * Sanity check, type on command line: `aws s3 ls` It should return a list of buckets available
-* Sync the folder with the bucket: `aws s3 sync build/ s3://(bucket name)`
+* Sync the folder with the bucket: `aws s3 sync build/ s3://*your bucket name*`
 
 NOTE IF YOU GOT ACCESS ERROR:
 
@@ -78,7 +78,7 @@ NOTE: Make sure every source field is set to:
     - chmod 400 ~/Downloads/seca-keypair.pem
 
 * Once you've had your key-pair downloaded, input:
-    - ssh -i ~/Downloads/seca-keypair.pem ubuntu@(*Paste your public DNS here*)
+    - ssh -i ~/Downloads/seca-keypair.pem ubuntu@*Paste your public DNS here*
 
 You should see something like this in your terminal:
 
@@ -117,11 +117,11 @@ NOTE: if you run into errors, just copy the link into axios...
 
 * Navigate into the retail-map front end directory. Within the .env file, paste your new public DNS and save the file. It should look something like this:
 
-REACT_APP_HOST=http://(*Paste your public DNS here*):8080
+REACT_APP_HOST=*Paste your public DNS here*:8080
 
 * Back in the terminal, navigate to the retail-map directory and run the following commands:
-* `npm build`
-* Sync the folder with the bucket: `aws s3 sync build/ s3://(*your bucket name*)`
+* `npm run build`
+* Sync the folder with the bucket: `aws s3 sync build/ s3://*your bucket name*`
 
 NOTE IF YOU GOT ACCESS ERROR:
 
