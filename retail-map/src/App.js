@@ -7,10 +7,12 @@ import AddFavorites from './AddFavorites';
 import Header from './Header';
 import $ from 'jquery';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { ListGroup, ListGroupItem, DropdownButton, MenuItem, Button } from 'react-bootstrap';
+import { Accordion, Icon } from 'semantic-ui-react'
 
 
 class App extends Component {
@@ -20,17 +22,18 @@ class App extends Component {
       selected: "",
       selectedList: false,
       anchorEl: null,
-      open: false
+      open: false,
+      activeIndex: 1
     }
     this.resetSelect = this.resetSelect.bind(this);
   }
 
   //method that makes a call to the database and stores the resukts in state
   componentDidMount() {
-    axios.get(`/retailers`)
-    // axios.get(process.env.REACT_APP_HOST+`/retailers`)
+    // axios.get(`/retailers`)
+    axios.get(process.env.REACT_APP_HOST+`/retailers`)
     .then(function (response) {
-      console.log('response', response.data)
+      // console.log('response', response.data)
       this.setState({
         retailers: response.data,
       })
@@ -86,8 +89,8 @@ class App extends Component {
   //method to delete a favorite item and remove it from the DB via axios call from the array that lives in state
   deleteFavorite = async (retailerId, index) => {
     try {
-      await axios.delete(`/retailers/${retailerId}`);
-      // await axios.delete(process.env.REACT_APP_HOST+`/retailers/${retailerId}`);
+      // await axios.delete(`/retailers/${retailerId}`);
+      await axios.delete(process.env.REACT_APP_HOST+`/retailers/${retailerId}`);
       const updatedRetailersList = [...this.state.retailers];
       updatedRetailersList.splice(index, 1);
       this.setState({ retailers: updatedRetailersList });
@@ -100,7 +103,7 @@ class App extends Component {
   //method to add favorite and add it to the DB via axios call and push the new value to the array that lives in state
   addFavorite = async (retailer, index) => {
     this.resetSelect();
-    console.log('create', retailer)
+    // console.log('create', retailer)
     try {
       // this.state.retailers.map((favorite, index) => {
       //   if(retailer.lat === favorite.lat)
@@ -108,8 +111,8 @@ class App extends Component {
             
       //     )
       // })
-      const newFavoriteResponse = await axios.post(`/retailers`, retailer);
-      // const newFavoriteResponse = await axios.post(process.env.REACT_APP_HOST+`/retailers`, retailer);
+      // const newFavoriteResponse = await axios.post(`/retailers`, retailer);
+      const newFavoriteResponse = await axios.post(process.env.REACT_APP_HOST+`/retailers`, retailer);
 
       const updatedFavoriteList = [...this.state.retailers];
       updatedFavoriteList.push(newFavoriteResponse.data);
@@ -126,11 +129,11 @@ class App extends Component {
 
   //method to patch the new favorite by making an axios call to the database
   updateFavorite = async index => {
-    console.log('state', this.state.retailers[index])
+    // console.log('state', this.state.retailers[index])
     try {
       const retailerToUpdate = this.state.retailers[index];
-      await axios.patch(`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
-      // await axios.patch(process.env.REACT_APP_HOST+`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
+      // await axios.patch(`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
+      await axios.patch(process.env.REACT_APP_HOST+`/retailers/${retailerToUpdate.id}`, retailerToUpdate);
       console.log('Updated Favorite!');
     } catch (error) {
       console.log("Error updating Favorite!");
@@ -140,7 +143,7 @@ class App extends Component {
 
   //method to set the state of user input for favorite edit
   handleFavoriteChange = (event, index) => {
-    console.log('event name', event.target.value)
+    // console.log('event name', event.target.value)
     const attributeToChange = event.target.name;
     const newValue = event.target.value;
 
@@ -171,6 +174,14 @@ class App extends Component {
 
   handleClose = () => this.setState({open: false});
 
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeIndex } = this.state
+    const newIndex = activeIndex === index ? -1 : index
+
+    this.setState({ activeIndex: newIndex })
+  }
+
   render() {
     //conditional statements to filter secondary category names from external API data and then remove duplicates
     let secondaries;
@@ -185,12 +196,13 @@ class App extends Component {
         return array.indexOf(val) === id;  
       })
     }
+    const { activeIndex } = this.state
 
     return (
       <div className="App">
         <Header selection={this.handleSecondaryChange} resetSelect={this.resetSelect}  />
         <div className="header">
-          <h1 style={{padding: '15px', color: 'white'}}>Lower Manhattan Retail Map</h1>
+          <h1 style={{padding: '15px', color: 'white', fontSize: '40px'}}>Lower Manhattan Retail Map</h1>
         </div>
         <br />
           <div className="layout">
@@ -251,7 +263,7 @@ class App extends Component {
                     return (
                     <ListGroup key={index}>
                       <ListGroupItem bsStyle="info">
-                      <div>
+                      <div data-user-display>
                         <div>
                             <input
                               name="orgName"
@@ -259,23 +271,28 @@ class App extends Component {
                               onBlur={() => this.updateFavorite(index)}
                               value={favorites.orgName} />
                         </div>
-                        {/* <MuiThemeProvider>
-                          <div>
-                            <RaisedButton
-                              label="Open Drawer"
-                              onClick={this.handleToggle}
-                            />
-                            <Drawer
-                              docked={false}
-                              width={200}
-                              open={this.state.open}
-                              onRequestChange={(open) => this.setState({open})}
-                            >
-                              <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-                              <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
-                            </Drawer>
-                          </div>
-                        </MuiThemeProvider> */}
+                        <br />
+                        <Accordion styled>
+                          <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                            <Icon name='dropdown' />
+                            Notes
+                          </Accordion.Title>
+                          <Accordion.Content active={activeIndex === 0}>
+                            <MuiThemeProvider>
+                              <Paper zDepth={2}>
+                                <TextField hintText="Accessibility" style={{marginLeft: 20}} underlineShow={false} />
+                                <Divider />
+                                <TextField hintText="Atmosphere" style={{marginLeft: 20}} underlineShow={false} />
+                                <Divider />
+                                <TextField hintText="Wifi" style={{marginLeft: 20}} underlineShow={false} />
+                                <Divider />
+                                <TextField hintText="Public Restrooms" style={{marginLeft: 20}} underlineShow={false} />
+                                <Divider />
+                              </Paper>
+                            </MuiThemeProvider>
+                          </Accordion.Content>
+                        </Accordion>
+                        <br />
                         <Button className="buttonOne" style={{marginTop: '5px'}} onClick={() => this.deleteFavorite(favorites.id, index)}>
                           Delete
                         </Button>

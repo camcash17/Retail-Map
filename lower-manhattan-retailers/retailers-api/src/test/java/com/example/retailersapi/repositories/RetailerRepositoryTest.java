@@ -50,34 +50,34 @@ public class RetailerRepositoryTest {
     public void findAll_returnsAllRetailers() {
         Iterable<Retailer> retailersFromDb = retailerRepository.findAll();
 
-        assertThat(Iterables.size(retailersFromDb), is(6));
+        assertThat(Iterables.size(retailersFromDb), is(2));
     }
 
     @Test
     public void findAll_returnsOrgName() {
         Iterable<Retailer> retailersFromDb = retailerRepository.findAll();
 
-        String secondRetailersOrgName = Iterables.get(retailersFromDb, 2).getOrgName();
+        String secondRetailersOrgName = Iterables.get(retailersFromDb, 1).getOrgName();
 
-        assertThat(secondRetailersOrgName, is("Starbucks Coffee"));
+        assertThat(secondRetailersOrgName, is("second_org"));
     }
 
     @Test
     public void findAll_returnsPrimaryName() {
         Iterable<Retailer> retailersFromDb = retailerRepository.findAll();
 
-        String secondRetailersPrimaryName = Iterables.get(retailersFromDb, 2).getPrimaryName();
+        String secondRetailersPrimaryName = Iterables.get(retailersFromDb, 1).getPrimaryName();
 
-        assertThat(secondRetailersPrimaryName, is("Casual Eating & Takeout"));
+        assertThat(secondRetailersPrimaryName, is("some other primary"));
     }
 
     @Test
     public void findAll_returnsSecondaryName() {
         Iterable<Retailer> retailersFromDb = retailerRepository.findAll();
 
-        String secondRetailersSecondaryName = Iterables.get(retailersFromDb, 2).getSecondaryName();
+        String secondRetailersSecondaryName = Iterables.get(retailersFromDb, 1).getSecondaryName();
 
-        assertThat(secondRetailersSecondaryName, is("F-Coffeehouse"));
+        assertThat(secondRetailersSecondaryName, is("some other secondary"));
     }
 
 }

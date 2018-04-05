@@ -2,16 +2,6 @@
 
 ## Proposal
 
-### Instructions for Running this project
-* Clone this repository
-* Make sure Docker and Docker Compose are installed
-* From the lower-manhattan-retailers directory of this project run "docker-compose up" in the terminal
-* Navigate to localhost:8080/retailers to confirm API is up and running
-* If build fails the first time, run docker-compose down and then docker-compose up again
-* Navigate to the retail-map directory of this project and run "npm install" in the terminal
-* Run "yarn start" in the terminal from the same directory
-* Navigate to localhost:3000 to see the application
-
 ### Problem Statement
 The User needs an effective way to find, add and delete to a favorite list, various types of retail companies located in Lower Manhattan, New York, USA. Once the specific grouping of the retail type has been queried and filtered, the user should be able to geo-locate the establishment using google maps.
 
@@ -27,6 +17,11 @@ The Retail-Map application is able to solve the problem of allowing a user to lo
 * Microservices
 * Test-Driven Development
 
+### Instructions for Running this project
+https://github.com/camcash17/Retail-Map/blob/master/instructions.md
+
+### User Research
+https://github.com/camcash17/Retail-Map/blob/master/user-research.md
 
 ### Monolithic Solution
 The current monolithic solution is creating a postgres database and storing all relevant tables (currently Inventory and Categories). The current solution proves to be scalable and efficient.

@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 
@@ -59,13 +61,11 @@ public class RetailersUIFeatureTest {
 
         System.setProperty("selenide.browser", "Chrome");
 
-        open("http://www.google.com");
+        // Visit the UI in a browser
+        open("http://localhost:3000");
 
-        WebElement queryBox = $(By.name("q"));
-        queryBox.sendKeys("Kent Beck");
-        queryBox.submit();
-
-        $("body").shouldHave(text("extreme programming"));
+        // There should only be two favorites
+        $$("[data-user-display]").shouldHave(size(2));
 
     }
 
